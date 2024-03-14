@@ -1,38 +1,53 @@
-/*!
-=========================================================
-* Meyawo Landing page
-=========================================================
+$(document).ready(function () {
+  $(".navbar .nav-link").on("click", function (event) {
+    if (this.hash !== "") {
+      event.preventDefault();
 
-* Copyright: 2019 DevCRUD (https://devcrud.com)
-* Licensed: (https://devcrud.com/licenses)
-* Coded by www.devcrud.com
+      var hash = this.hash;
 
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// smooth scroll
-$(document).ready(function(){
-    $(".navbar .nav-link").on('click', function(event) {
-
-        if (this.hash !== "") {
-
-            event.preventDefault();
-
-            var hash = this.hash;
-
-            $('html, body').animate({
-                scrollTop: $(hash).offset().top
-            }, 700, function(){
-                window.location.hash = hash;
-            });
-        } 
-    });
+      $("html, body").animate(
+        {
+          scrollTop: $(hash).offset().top,
+        },
+        700,
+        function () {
+          window.location.hash = hash;
+        }
+      );
+    }
+  });
 });
 
 // navbar toggle
-$('#nav-toggle').click(function(){
-    $(this).toggleClass('is-active')
-    $('ul.nav').toggleClass('show');
+$("#nav-toggle").click(function () {
+  $(this).toggleClass("is-active");
+  $("ul.nav").toggleClass("show");
 });
+
+function sendMail() {
+  let parms = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    subject: document.getElementById("subject").value,
+    message: document.getElementById("message").value,
+  };
+
+ 
+
+  emailjs
+    .send("service_1rchdu6", "template_dl445wb", parms)
+    .then(alert("Email sent successfully!"))
+    .catch(function (error) {
+      alert("Failed to send email. Please try again later.");
+      console.error("Email sending failed:", error);
+    });
+}
+document
+  .querySelector(".contact-form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    sendMail();
+  });
+
+
+  
